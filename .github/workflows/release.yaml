@@ -33,8 +33,10 @@ jobs:
         include:
           - os: ubuntu-latest
             platform: linux_amd64_cgo
-          - os: ubuntu-24.04-arm64-4core
-            platform: linux_arm64_cgo
+          # Note: linux_arm64 requires paid GitHub plan for ARM64 runners
+          # Uncomment when ARM64 runners are available:
+          # - os: ubuntu-24.04-arm64-4core
+          #   platform: linux_arm64_cgo
           - os: macos-latest
             platform: darwin_arm64_cgo
     runs-on: ${{ matrix.os }}
