@@ -39,6 +39,8 @@ jobs:
           #   platform: linux_arm64_cgo
           - os: macos-latest
             platform: darwin_arm64_cgo
+          - os: macos-13
+            platform: darwin_amd64_cgo
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
