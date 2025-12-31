@@ -12,6 +12,7 @@ go 1.24.5
 
 require (
 	github.com/EngFlow/gazelle_cc v0.4.0 // NOTE: keep in sync with MODULE.bazel
+	github.com/bazel-contrib/rules_jvm v0.31.1 // NOTE: keep in sync with MODULE.bazel
 	github.com/bazel-contrib/rules_python/gazelle v0.0.0-20251012075144-43a5acf8cedf
 	github.com/bazelbuild/bazel-gazelle v0.47.0 // NOTE: keep in sync with MODULE.bazel
 	github.com/bazelbuild/buildtools v0.0.0-20251112105957-8e68360eeafa
@@ -51,7 +52,6 @@ require (
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/a8m/envsubst v1.4.3 // indirect
 	github.com/alecthomas/participle/v2 v2.1.4 // indirect
-	github.com/bazel-contrib/rules_jvm v0.31.1 // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
 	github.com/elliotchance/orderedmap v1.8.0 // indirect
 	github.com/go-ini/ini v1.67.0 // indirect

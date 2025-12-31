@@ -26,6 +26,7 @@ import (
 
 	"github.com/EngFlow/gazelle_cc/language/cc"
 	"github.com/aspect-build/aspect-gazelle/common/cache"
+	java "github.com/bazel-contrib/rules_jvm/java/gazelle"
 	buf "github.com/bufbuild/rules_buf/gazelle/buf"
 	js "github.com/aspect-build/aspect-gazelle/language/js"
 	kotlin "github.com/aspect-build/aspect-gazelle/language/kotlin"
@@ -73,6 +74,7 @@ const (
 	Bzl                               = "starlark"
 	Python                            = "python"
 	CC                                = "cc"
+	Java                              = "java"
 )
 
 // Gazelle command
@@ -151,6 +153,8 @@ func (c *GazelleRunner) AddLanguage(lang GazelleLanguage) {
 		c.AddLanguageFactory(lang, python.NewLanguage)
 	case CC:
 		c.AddLanguageFactory(lang, cc.NewLanguage)
+	case Java:
+		c.AddLanguageFactory(lang, java.NewLanguage)
 	default:
 		log.Fatalf("ERROR: unknown language %q", lang)
 	}

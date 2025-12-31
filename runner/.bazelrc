@@ -1,3 +1,14 @@
 ########################
 # Import bazelrc presets
 import %workspace%/../tools/preset.bazelrc
+
+# Required to enable the java embedded server
+# See https://github.com/bazel-contrib/rules_jvm/commit/639446ee2ba5f90dbd86f8c0983d3647f7c803e3
+common --@contrib_rules_jvm//java/gazelle:embed_server=True
+
+# Required for building contrib_rules_jvm's ClasspathParser which uses jdk.compiler internals
+# The jdk.compiler module APIs (com.sun.source.tree.*) need JDK 17's proper module exports
+build --java_runtime_version=remotejdk_17
+build --java_language_version=17
+build --tool_java_runtime_version=remotejdk_17
+build --tool_java_language_version=17
