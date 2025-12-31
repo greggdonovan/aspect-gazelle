@@ -39,8 +39,9 @@ jobs:
           #   platform: linux_arm64_cgo
           - os: macos-latest
             platform: darwin_arm64_cgo
-          - os: macos-13
-            platform: darwin_amd64_cgo
+          # Note: macos-15-large requires paid GitHub plan
+          # - os: macos-15-large
+          #   platform: darwin_amd64_cgo
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
