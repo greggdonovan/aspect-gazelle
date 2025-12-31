@@ -35,6 +35,15 @@ bazel_dep(name = "gazelle", version = "0.47.0")  # must match go.mod
 bazel_dep(name = "rules_python_gazelle_plugin", version = "1.6.3")  # must match go.mod
 bazel_dep(name = "gazelle_cc", version = "0.4.0")  # must match go.mod
 bazel_dep(name = "contrib_rules_jvm", version = "0.31.1")  # must match go.mod
+# For local development with toolchains_protoc changes, uncomment:
+# local_path_override(
+#     module_name = "contrib_rules_jvm",
+#     path = "../../contrib_rules_jvm",
+# )
+
+# Prebuilt protoc binaries - avoids C++ protobuf compilation during cross-compilation
+# See: https://github.com/aspect-build/toolchains_protoc
+bazel_dep(name = "toolchains_protoc", version = "0.6.0")
 
 # Override the gazelle used locally to apply aspect patches
 single_version_override(
@@ -73,5 +82,17 @@ go_deps2.module_override(
     path = "github.com/bazelbuild/bazel-gazelle",
 )
 
-# For cgo
-include("//:llvm.MODULE.bazel")
+# Configure toolchains_protoc for precompiled protoc binaries
+protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
+protoc.toolchain(
+    google_protobuf = "com_google_protobuf",
+    version = "v29.1",  # Match rules_buf protobuf version
+)
+use_repo(protoc, "toolchains_protoc_hub")
+
+# Register prebuilt protoc toolchain FIRST to avoid C++ protobuf compilation
+register_toolchains("@toolchains_protoc_hub//:all")
+
+# For cgo cross-compilation (disabled - using matrix builds instead of cross-compilation)
+# The LLVM toolchain has C++ stdlib linking issues when cross-compiling protobuf
+# include("//:llvm.MODULE.bazel")
