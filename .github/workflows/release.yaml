@@ -33,15 +33,15 @@ jobs:
         include:
           - os: ubuntu-latest
             platform: linux_amd64_cgo
-          # Note: linux_arm64 requires paid GitHub plan for ARM64 runners
-          # Uncomment when ARM64 runners are available:
-          # - os: ubuntu-24.04-arm64-4core
-          #   platform: linux_arm64_cgo
+          # ARM64 Linux runner - free for public repos
+          # See: https://github.blog/changelog/2025-08-07-arm64-hosted-runners-for-public-repositories-are-now-generally-available/
+          - os: ubuntu-24.04-arm64
+            platform: linux_arm64_cgo
           - os: macos-latest
             platform: darwin_arm64_cgo
-          # Note: macos-15-large requires paid GitHub plan
-          # - os: macos-15-large
-          #   platform: darwin_amd64_cgo
+          # Intel Mac runner - free tier (macos-13 retired Dec 4, 2025)
+          - os: macos-15-intel
+            platform: darwin_amd64_cgo
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5

@@ -15,3 +15,13 @@ build --tool_java_language_version=17
 
 # Enable proto toolchain resolution for prebuilt protoc (toolchains_protoc)
 common --incompatible_enable_proto_toolchain_resolution
+
+# Fail fast if protobuf/grpc is accidentally compiled from C++ source
+# The prebuilt plugin and toolchains_protoc should handle all proto compilation
+# DISABLED: Go proto compilation still requires upb (C++ protobuf runtime)
+# TODO: Re-enable protobuf breakers when rules_go supports pure prebuilt proto compilation
+# common --per_file_copt=external/.*protobuf.*@--PROTOBUF_WAS_NOT_SUPPOSED_TO_BE_BUILT
+# common --host_per_file_copt=external/.*protobuf.*@--PROTOBUF_WAS_NOT_SUPPOSED_TO_BE_BUILT
+# gRPC build breakers - enabled since we use prebuilt protoc-gen-grpc-java
+common --per_file_copt=external/.*grpc.*@--GRPC_WAS_NOT_SUPPOSED_TO_BE_BUILT
+common --host_per_file_copt=external/.*grpc.*@--GRPC_WAS_NOT_SUPPOSED_TO_BE_BUILT
